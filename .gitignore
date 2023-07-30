@@ -2,6 +2,7 @@
 
 #Ignorar o ambiente virtual
 /venv
+/gui
 
 
 #Ignorear Imagens
