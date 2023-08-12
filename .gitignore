@@ -1,9 +1,12 @@
 
 
 #Ignorar o ambiente virtual
-/venv
-/gui
-
+venv/
+gui/
+__pycache__/
+imagens/
 
 #Ignorear Imagens
 *.jpg
+*.tiff
+*.tif
