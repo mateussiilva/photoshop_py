@@ -10,3 +10,9 @@ imagens/
 *.jpg
 *.tiff
 *.tif
+
+
+# BUILD
+/build
+/dist
+app.spec
