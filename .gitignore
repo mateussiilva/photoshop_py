@@ -8,6 +8,7 @@ imagens/
 
 #Ignorear Imagens
 *.jpg
+*.png
 *.tiff
 *.tif
 
