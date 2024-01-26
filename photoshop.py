@@ -1,7 +1,13 @@
 from PIL import Image
+import cv2
+import numpy as np
 
 
-paht_image = "/home/mateus/Imagens/fundo_cidade.jpg"
+filename = "background_police.jpg"
 
-  
-img = Image.open(paht_image).show()
+img = Image.open(filename)
+imgcv2 = cv2.imread(filename)
+w, h, c = imgcv2.shape
+print(c)
+print(h)
+# img.show()
