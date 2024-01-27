@@ -4,7 +4,7 @@
 .venv/
 gui/
 __pycache__/
-imagens/
+images_teste/
 
 #Ignorear Imagens
 *.jpg
