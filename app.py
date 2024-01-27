@@ -1,27 +1,42 @@
-from PySimpleGUI import Window,WIN_CLOSED,Text,Input,FileBrowse,Multiline,Button
-from PIL import Image
 
-
-SIZE = 600,600
-REZIBLE_SIZE  = tuple(map(lambda n: n*3,SIZE))
-layout = [
-    [Text("Selecione uma imagem:"),Input(key="-PATH_IMAGE-"),FileBrowse("Select Image",initial_folder="/home/mateus/Imagens/")],
-    [Multiline(size=(100,30))],
-    [Button("Dados da Imagem",key="-PEGAR_DADOS_IMAGE-")]
-]
+from PySide6.QtGui import QPixmap
+from PySide6.QtWidgets import QApplication, QMainWindow, QLabel, QPushButton, QWidget, QVBoxLayout
 
 
 
-window = Window("Dados da imagem",layout,size=SIZE,resizable=REZIBLE_SIZE)
 
-while True:
-    events, values = window.read()
-    
-    if events == "-PEGAR_DADOS_IMAGE-":
-        path_image = values["-PATH_IMAGE-"] 
-        path_image = values["-PATH_IMAGE-"] if len(path_image) else "/home/mateus/Imagens/icone_python.png"
-    if events == WIN_CLOSED:
-        break
-    
-    
-window.close()
+
+
+
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+
+        self.setWindowTitle("PhotoPy")
+        layout = QVBoxLayout()
+
+        self.lbl_image = QLabel()
+        self.bnt_get_image = QPushButton("Selecionar Imagem")
+        self.bnt_get_image.clicked.connect(self.setar_imagem)
+        
+        layout.addWidget(self.lbl_image)
+        layout.addWidget(self.bnt_get_image)
+        central_widget = QWidget()
+        central_widget.setLayout(layout)
+
+        self.setCentralWidget(central_widget)
+        
+    def setar_imagem(self):
+        pathimage = "background_police.jpg"
+        image = QPixmap(pathimage)
+        self.lbl_image.setPixmap(image)
+        print("Hello")
+
+
+
+
+if __name__ == "__main__":
+    app = QApplication([])
+    window = MainWindow()
+    window.show()
+    app.exec()
