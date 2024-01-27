@@ -1,42 +1,30 @@
-
-from PySide6.QtGui import QPixmap
-from PySide6.QtWidgets import QApplication, QMainWindow, QLabel, QPushButton, QWidget, QVBoxLayout
-
+from PIL import Image
+import rembg
 
 
+Image.MAX_IMAGE_PIXELS = None
 
 
+class PhotoPy:
+    def __init__(self) -> None:
+        self.mode = "RGB"
 
+    @classmethod
+    def open_image(cls, filename: str, isgray: bool = False) -> Image:
 
-class MainWindow(QMainWindow):
-    def __init__(self):
-        super().__init__()
+        if isgray:
+            img = Image.open(filename)
+            return img.convert("L")
 
-        self.setWindowTitle("PhotoPy")
-        layout = QVBoxLayout()
-
-        self.lbl_image = QLabel()
-        self.bnt_get_image = QPushButton("Selecionar Imagem")
-        self.bnt_get_image.clicked.connect(self.setar_imagem)
-        
-        layout.addWidget(self.lbl_image)
-        layout.addWidget(self.bnt_get_image)
-        central_widget = QWidget()
-        central_widget.setLayout(layout)
-
-        self.setCentralWidget(central_widget)
-        
-    def setar_imagem(self):
-        pathimage = "background_police.jpg"
-        image = QPixmap(pathimage)
-        self.lbl_image.setPixmap(image)
-        print("Hello")
-
-
+        img = Image.open(filename)
+        return img
 
 
 if __name__ == "__main__":
-    app = QApplication([])
-    window = MainWindow()
-    window.show()
-    app.exec()
+    photopy = PhotoPy()
+    image = photopy.open_image(
+        "images_teste/wide-angle-shot-two-women-walking-beach-with-surfing-boards.jpg", isgray=False)
+    # image.show()
+    image_sem_fundo = rembg.remove(image)
+
+    image_sem_fundo.save("sem_fundo.png")
