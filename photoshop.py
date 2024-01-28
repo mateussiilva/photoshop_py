@@ -9,7 +9,9 @@ Image.MAX_IMAGE_PIXELS = None
 class PhotoPy:
     def __init__(self) -> None:
         self.mode = "RGB"
-
+        self.font_global = ""
+        self.font_size = 48
+    
     @classmethod
     def open_image(cls, filename: str, isgray: bool = False) -> Image:
 
@@ -25,8 +27,27 @@ class PhotoPy:
         p = name + extensao
         i.save(p)
 
-    def escreverimage(self, img, posicao,texto,colortext):
-        pass
+    def size_image(self,img:Image) -> tuple:
+        return img.size
+        # return dict(zip(("w","h"),img.size))
+    
+    def dados_imagem(self,img):
+        msg = f"""
+        DPI: {self.get_dpi(img)}
+        Dimensoes(PX): {self.size_image(img)}
+        """
+        # print(f"SIZE{}")
+        print(msg)
+        return msg
+    
+    @staticmethod    
+    def get_dpi(img):
+        try:
+            return img.info["dpi"][0]
+        except:
+            return None
+    # def save():
+        
 
 if __name__ == "__main__":
     photopy = PhotoPy()
