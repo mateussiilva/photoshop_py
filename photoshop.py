@@ -27,14 +27,20 @@ class PhotoPy:
         p = name + extensao
         i.save(p)
 
-    def size_image(self,img:Image) -> tuple:
+    def size_image(self,img:Image, cm:bool = False) -> tuple:
+        if cm:
+            d = self.get_dpi(img) if self.get_dpi(img) is not None else 1
+            
+            return tuple(map(lambda x: x / d * 2.54, img.size))
+        
         return img.size
-        # return dict(zip(("w","h"),img.size))
+  
     
     def dados_imagem(self,img):
         msg = f"""
         DPI: {self.get_dpi(img)}
         Dimensoes(PX): {self.size_image(img)}
+        Dimensoes(CM): {self.size_image(img,cm=True)}
         """
         # print(f"SIZE{}")
         print(msg)
@@ -43,7 +49,7 @@ class PhotoPy:
     @staticmethod    
     def get_dpi(img):
         try:
-            return img.info["dpi"][0]
+            return round(img.info["dpi"][0])
         except:
             return None
     # def save():
